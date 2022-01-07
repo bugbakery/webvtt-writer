@@ -7,7 +7,6 @@
     "noImplicitAny": true,
     "sourceMap": true,
     "baseUrl": ".",
-    "noEmit": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "strictNullChecks": true,
@@ -20,7 +19,8 @@
       "es5",
       "scripthost",
       "es2015.generator"
-    ]
+    ],
+    "outDir": "dist"
   },
   "include": [
     "src/**/*",
