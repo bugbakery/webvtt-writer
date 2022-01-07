@@ -16,7 +16,7 @@ jobs:
       with:
         node-version: 16
         cache: 'npm'
-        cache-dependency-path: app/package-lock.json
+        cache-dependency-path: package-lock.json
     - name: Install dependencies
       run: npm --prefix app/ ci
     - uses: pre-commit/action@v2.0.3
