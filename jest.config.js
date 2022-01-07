@@ -4,4 +4,5 @@ module.exports = {
     '^.+\\.tsx?$': 'esbuild-jest',
   },
   testEnvironment: 'node',
+  testPathIgnorePatterns:  ["<rootDir>/dist/", "<rootDir>/node_modules/"]
 };
