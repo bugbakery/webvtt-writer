@@ -1,13 +1,3 @@
-// export class VttCueSettings {
-//   vertical?: 'rl' | 'lr';
-//   line?: number | string;
-//   size?: string;
-//   align?: 'start' | 'center' | 'end';
-//
-//   toString() {
-//     return Object.entries(this).map((k, v) => `${k}:${v}`).join(' ')
-//   }
-// }
 import { VttComment, VttCue, VttCueSettings, WebVtt } from './WebVtt';
 
 test('empty cue settings produce empty string', () => {
