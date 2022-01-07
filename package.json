@@ -1,0 +1,40 @@
+{
+  "name": "@audapolis/webvtt-writer",
+  "version": "1.0.0",
+  "description": "A small library to create WebVTT (and SRT) files",
+  "main": "dist/WebVtt.js",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint . --ext .ts",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/audapolis/webvtt-writer.git"
+  },
+  "keywords": [
+    "webvtt",
+    "subtitles",
+    "typescript"
+  ],
+  "author": "",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/audapolis/webvtt-writer/issues"
+  },
+  "homepage": "https://github.com/audapolis/webvtt-writer#readme",
+  "devDependencies": {
+    "@types/jest": "^27.4.0",
+    "@typescript-eslint/eslint-plugin": "^4.30.0",
+    "@typescript-eslint/parser": "^4.30.0",
+    "esbuild": "^0.12.28",
+    "esbuild-jest": "^0.5.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.25.1",
+    "eslint-plugin-unused-imports": "^1.1.4",
+    "jest": "^27.4.7",
+    "typescript": ">=3.3.1 <4.5.0"
+  }
+}

@@ -1,0 +1,5 @@
+dist/
+build/
+.DS_*
+node_modules/
+.idea/
