@@ -2,9 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.WebVtt = exports.escapeVttString = exports.VttComment = exports.VttCue = exports.formattedTime = exports.VttCueSettings = void 0;
 class VttCueSettings {
-    constructor({ vertical, size, line, align, }) {
+    constructor({ vertical, size, position, line, align, }) {
         this.vertical = vertical;
         this.line = line;
+        this.position = position;
         this.size = size;
         this.align = align;
     }
@@ -48,6 +49,12 @@ class VttCue {
         this.payload = payload;
         if (identifier && !identifierEscaped) {
             identifier = escapeVttString(identifier);
+        }
+        if (identifier === null || identifier === void 0 ? void 0 : identifier.includes('\n')) {
+            throw Error('WebVTT cue identifiers MUST NOT contain a newline');
+        }
+        if (identifier === null || identifier === void 0 ? void 0 : identifier.includes('-->')) {
+            throw Error('WebVTT cue identifiers MUST NOT contain -->');
         }
         this.identifier = identifier;
         this.settings = settings;
