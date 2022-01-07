@@ -1,4 +1,4 @@
-import { VttComment, VttCue, VttCueSettings, WebVtt } from './WebVtt';
+import { VttComment, VttCue, VttCueSettings, WebVtt, escapeVttString } from './WebVtt';
 
 test('empty cue settings produce empty string', () => {
   const settings = new VttCueSettings({});
@@ -111,5 +111,85 @@ test('generating a valid srt', () => {
       '3\n' +
       '00:03:05.000 --> 00:03:30.000\n' +
       '- Ta en kopp'
+  );
+});
+
+test('exampleFromReadme', () => {
+  const _minimal_vtt = new WebVtt();
+
+  const vtt = new WebVtt('Subtitles are cool');
+
+  const myComment = new VttComment('This is a comment\nIt can even be multiline');
+  vtt.add(myComment);
+
+  const mySimpleCue = new VttCue({
+    startTime: 1,
+    endTime: 2,
+    payload: 'This will be shown\nincluding this second line',
+  });
+  vtt.add(mySimpleCue);
+
+  const cueWithIdentifier = new VttCue({
+    startTime: 3,
+    endTime: 4,
+    payload: 'This cue has an identifier',
+    identifier: "Hey, i'm an identifier",
+  });
+  vtt.add(cueWithIdentifier);
+
+  const mySettings = new VttCueSettings({ size: '50%' });
+  const cueWithSettings = new VttCue({
+    startTime: 5,
+    endTime: 120,
+    payload: 'This cue has settings',
+    settings: mySettings,
+  });
+  vtt.add(cueWithSettings);
+
+  const cueWithoutEscaping = new VttCue({
+    startTime: 130,
+    endTime: 200,
+    payload: `<b>${escapeVttString('This cue')}</b>${escapeVttString(' has cue text tags')}`,
+    payloadEscaped: true,
+  });
+  vtt.add(cueWithoutEscaping);
+
+  const vttString = vtt.toString();
+  expect(vttString).toBe(
+    'WEBVTT Subtitles are cool\n' +
+      '\n' +
+      'NOTE This is a comment\n' +
+      'It can even be multiline\n' +
+      '\n' +
+      '00:00:01.000 --> 00:00:02.000\n' +
+      'This will be shown\n' +
+      'including this second line\n' +
+      '\n' +
+      "Hey, i'm an identifier\n" +
+      '00:00:03.000 --> 00:00:04.000\n' +
+      'This cue has an identifier\n' +
+      '\n' +
+      '00:00:05.000 --> 00:02:00.000 size:50%\n' +
+      'This cue has settings\n' +
+      '\n' +
+      '00:02:10.000 --> 00:03:20.000\n' +
+      '<b>This cue</b> has cue text tags'
+  );
+
+  const srtString = vtt.toString('srt');
+  expect(srtString).toBe(
+    '00:00:01.000 --> 00:00:02.000\n' +
+      'This will be shown\n' +
+      'including this second line\n' +
+      '\n' +
+      "Hey, i'm an identifier\n" +
+      '00:00:03.000 --> 00:00:04.000\n' +
+      'This cue has an identifier\n' +
+      '\n' +
+      '00:00:05.000 --> 00:02:00.000\n' +
+      'This cue has settings\n' +
+      '\n' +
+      '00:02:10.000 --> 00:03:20.000\n' +
+      '<b>This cue</b> has cue text tags'
   );
 });
