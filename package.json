@@ -1,6 +1,6 @@
 {
   "name": "@audapolis/webvtt-writer",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A small library to create WebVTT (and SRT) files",
   "main": "dist/WebVtt.js",
   "types": "./src/WebVtt.ts",
