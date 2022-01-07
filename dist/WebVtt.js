@@ -1,4 +1,7 @@
-export class VttCueSettings {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.WebVtt = exports.escapeVttString = exports.VttComment = exports.VttCue = exports.formattedTime = exports.VttCueSettings = void 0;
+class VttCueSettings {
     constructor({ vertical, size, line, align, }) {
         this.vertical = vertical;
         this.line = line;
@@ -15,7 +18,8 @@ export class VttCueSettings {
             .join(' ');
     }
 }
-export function formattedTime(sec) {
+exports.VttCueSettings = VttCueSettings;
+function formattedTime(sec) {
     const subseconds = Math.floor((sec % 1) * 1000)
         .toString()
         .padStart(3, '0');
@@ -30,7 +34,8 @@ export function formattedTime(sec) {
         .padStart(2, '0');
     return `${hours}:${minutes}:${seconds}.${subseconds}`;
 }
-export class VttCue {
+exports.formattedTime = formattedTime;
+class VttCue {
     constructor({ startTime, endTime, payload, payloadEscaped, identifier, identifierEscaped, settings, }) {
         if (this.startTime >= this.endTime) {
             throw Error('Cue end time must be greater than cue start time');
@@ -55,7 +60,8 @@ export class VttCue {
             this.payload);
     }
 }
-export class VttComment {
+exports.VttCue = VttCue;
+class VttComment {
     constructor(text, escaped = false) {
         if (!escaped) {
             text = escapeVttString(text);
@@ -72,10 +78,12 @@ export class VttComment {
         return `NOTE ${this.commentText}`;
     }
 }
-export function escapeVttString(text) {
+exports.VttComment = VttComment;
+function escapeVttString(text) {
     const escape_map = { '&': '&amp;', '<': '&lt;', '>': '&gt;' };
     return text.replace(/[&<>]/, (x) => escape_map[x]);
 }
+exports.escapeVttString = escapeVttString;
 class VttHeader {
     constructor(text, escaped = false) {
         if (!escaped) {
@@ -96,7 +104,7 @@ class VttHeader {
         return `WEBVTT ${this.headerText}`;
     }
 }
-export class WebVtt {
+class WebVtt {
     constructor(header = '') {
         this.elements = [new VttHeader(header)];
     }
@@ -110,4 +118,5 @@ export class WebVtt {
             .join('\n\n');
     }
 }
+exports.WebVtt = WebVtt;
 //# sourceMappingURL=WebVtt.js.map
