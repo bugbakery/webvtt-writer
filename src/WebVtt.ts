@@ -7,22 +7,26 @@ interface VttElement {
 export class VttCueSettings {
   vertical?: 'rl' | 'lr';
   line?: number | string;
+  position?: string;
   size?: string;
   align?: 'start' | 'center' | 'end';
 
   constructor({
     vertical,
     size,
+    position,
     line,
     align,
   }: {
     vertical?: 'rl' | 'lr';
     line?: number | string;
+    position?: string;
     size?: string;
     align?: 'start' | 'center' | 'end';
   }) {
     this.vertical = vertical;
     this.line = line;
+    this.position = position;
     this.size = size;
     this.align = align;
   }
@@ -90,6 +94,12 @@ export class VttCue implements VttElement {
     this.payload = payload;
     if (identifier && !identifierEscaped) {
       identifier = escapeVttString(identifier);
+    }
+    if (identifier?.includes('\n')) {
+      throw Error('WebVTT cue identifiers MUST NOT contain a newline');
+    }
+    if (identifier?.includes('-->')) {
+      throw Error('WebVTT cue identifiers MUST NOT contain -->');
     }
     this.identifier = identifier;
     this.settings = settings;
