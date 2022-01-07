@@ -1,48 +1,40 @@
-// export class VttCueSettings {
-//   vertical?: 'rl' | 'lr';
-//   line?: number | string;
-//   size?: string;
-//   align?: 'start' | 'center' | 'end';
-//
-//   toString() {
-//     return Object.entries(this).map((k, v) => `${k}:${v}`).join(' ')
-//   }
-// }
-import { VttComment, VttCue, VttCueSettings, WebVtt } from './WebVtt';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const WebVtt_1 = require("./WebVtt");
 test('empty cue settings produce empty string', () => {
-    const settings = new VttCueSettings({});
+    const settings = new WebVtt_1.VttCueSettings({});
     expect(settings.toString('vtt')).toBe('');
 });
 test('partially filled cue settings produce correct string', () => {
-    let settings = new VttCueSettings({ vertical: 'lr' });
+    let settings = new WebVtt_1.VttCueSettings({ vertical: 'lr' });
     expect(settings.toString('vtt')).toBe('vertical:lr');
-    settings = new VttCueSettings({ vertical: 'lr' });
+    settings = new WebVtt_1.VttCueSettings({ vertical: 'lr' });
     expect(settings.toString('vtt')).toBe('vertical:lr');
 });
 test('updating the cue settings object', () => {
-    const settings = new VttCueSettings({ vertical: 'lr' });
+    const settings = new WebVtt_1.VttCueSettings({ vertical: 'lr' });
     expect(settings.toString('vtt')).toBe('vertical:lr');
     settings.vertical = 'rl';
     settings.size = '10';
     expect(settings.toString('vtt')).toBe('vertical:rl size:10');
 });
 test('generating a valid webvtt', () => {
-    const vtt = new WebVtt('- Translation of that film I like');
-    vtt.add(new VttComment('This translation was done by Kyle so that\nsome friends can watch it with their parents.'));
-    vtt.add(new VttCue({
+    const vtt = new WebVtt_1.WebVtt('- Translation of that film I like');
+    vtt.add(new WebVtt_1.VttComment('This translation was done by Kyle so that\nsome friends can watch it with their parents.'));
+    vtt.add(new WebVtt_1.VttCue({
         startTime: 135,
         endTime: 150,
         payload: '- Ta en kopp >varmt te.\n- Det är inte varmt.',
         identifier: '1',
     }));
-    vtt.add(new VttCue({
+    vtt.add(new WebVtt_1.VttCue({
         startTime: 165,
         endTime: 180,
         payload: '- Har en kopp te.\n- Det smakar som te.',
         identifier: '2',
     }));
-    vtt.add(new VttComment('This last line may not translate well.'));
-    vtt.add(new VttCue({ startTime: 185, endTime: 210, payload: '- Ta en kopp', identifier: '3' }));
+    vtt.add(new WebVtt_1.VttComment('This last line may not translate well.'));
+    vtt.add(new WebVtt_1.VttCue({ startTime: 185, endTime: 210, payload: '- Ta en kopp', identifier: '3' }));
     expect(vtt.toString()).toBe('WEBVTT - Translation of that film I like\n' +
         '\n' +
         'NOTE This translation was done by Kyle so that\n' +
@@ -65,22 +57,22 @@ test('generating a valid webvtt', () => {
         '- Ta en kopp');
 });
 test('generating a valid srt', () => {
-    const vtt = new WebVtt('- Translation of that film I like');
-    vtt.add(new VttComment('This translation was done by Kyle so that\nsome friends can watch it with their parents.'));
-    vtt.add(new VttCue({
+    const vtt = new WebVtt_1.WebVtt('- Translation of that film I like');
+    vtt.add(new WebVtt_1.VttComment('This translation was done by Kyle so that\nsome friends can watch it with their parents.'));
+    vtt.add(new WebVtt_1.VttCue({
         startTime: 135,
         endTime: 150,
         payload: '- Ta en kopp >varmt te.\n- Det är inte varmt.',
         identifier: '1',
     }));
-    vtt.add(new VttCue({
+    vtt.add(new WebVtt_1.VttCue({
         startTime: 165,
         endTime: 180,
         payload: '- Har en kopp te.\n- Det smakar som te.',
         identifier: '2',
     }));
-    vtt.add(new VttComment('This last line may not translate well.'));
-    vtt.add(new VttCue({ startTime: 185, endTime: 210, payload: '- Ta en kopp', identifier: '3' }));
+    vtt.add(new WebVtt_1.VttComment('This last line may not translate well.'));
+    vtt.add(new WebVtt_1.VttCue({ startTime: 185, endTime: 210, payload: '- Ta en kopp', identifier: '3' }));
     expect(vtt.toString('srt')).toBe('1\n' +
         '00:02:15.000 --> 00:02:30.000\n' +
         '- Ta en kopp &gt;varmt te.\n' +

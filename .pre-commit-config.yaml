@@ -10,6 +10,7 @@ repos:
       - id: check-yaml
       - id: debug-statements
       - id: end-of-file-fixer
+        exclude: 'dist/*'
       - id: trailing-whitespace
 
   - repo: https://github.com/pre-commit/mirrors-eslint
@@ -29,25 +30,27 @@ repos:
         args: ['--max-warnings', '0']
   - repo: local
     hooks:
+      - id: npm_format
+        name: npm format
+        entry: npm run format
+        language: node
+        pass_filenames: false
+
       - id: tsc
         name: tsc
         entry: npm run lint
         language: node
         files: src/.*
         pass_filenames: false
-  - repo: local
-    hooks:
-      - id: npm_format
-        name: npm format
-        entry: npm run format
-        language: node
-        files: src/.*
-        pass_filenames: false
-  - repo: local
-    hooks:
+
       - id: npm_test
         name: npm test
         entry: npm run test
         language: node
-        files: src/.*
+        pass_filenames: false
+
+      - id: npm_build
+        name: npm run build
+        entry: npm run build
+        language: node
         pass_filenames: false
