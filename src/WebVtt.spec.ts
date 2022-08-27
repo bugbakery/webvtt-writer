@@ -67,7 +67,7 @@ test('generating a valid webvtt', () => {
       '\n' +
       '3\n' +
       '00:03:05.000 --> 00:03:30.000\n' +
-      '- Ta en kopp'
+      '- Ta en kopp\n'
   );
 });
 
@@ -110,7 +110,7 @@ test('generating a valid srt', () => {
       '\n' +
       '3\n' +
       '00:03:05.000 --> 00:03:30.000\n' +
-      '- Ta en kopp'
+      '- Ta en kopp\n'
   );
 });
 
@@ -173,7 +173,7 @@ test('exampleFromReadme', () => {
       'This cue has settings\n' +
       '\n' +
       '00:02:10.000 --> 00:03:20.000\n' +
-      '<b>This cue</b> has cue text tags'
+      '<b>This cue</b> has cue text tags\n'
   );
 
   const srtString = vtt.toString('srt');
@@ -190,6 +190,6 @@ test('exampleFromReadme', () => {
       'This cue has settings\n' +
       '\n' +
       '00:02:10.000 --> 00:03:20.000\n' +
-      '<b>This cue</b> has cue text tags'
+      '<b>This cue</b> has cue text tags\n'
   );
 });

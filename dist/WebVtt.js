@@ -119,10 +119,10 @@ class WebVtt {
         this.elements.push(element);
     }
     toString(format = 'vtt') {
-        return this.elements
+        return (this.elements
             .map((x) => x.toString(format))
             .filter((x) => x)
-            .join('\n\n');
+            .join('\n\n') + '\n');
     }
 }
 exports.WebVtt = WebVtt;

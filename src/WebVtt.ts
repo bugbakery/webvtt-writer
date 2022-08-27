@@ -179,9 +179,11 @@ export class WebVtt {
   }
 
   toString(format: SubtitleFormat = 'vtt'): string {
-    return this.elements
-      .map((x) => x.toString(format))
-      .filter((x) => x)
-      .join('\n\n');
+    return (
+      this.elements
+        .map((x) => x.toString(format))
+        .filter((x) => x)
+        .join('\n\n') + '\n'
+    );
   }
 }
