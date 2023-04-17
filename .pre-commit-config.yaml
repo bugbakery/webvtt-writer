@@ -10,7 +10,7 @@ repos:
       - id: check-yaml
       - id: debug-statements
       - id: end-of-file-fixer
-        exclude: 'dist/*'
+        exclude: 'dist/.*'
       - id: trailing-whitespace
 
   - repo: https://github.com/pre-commit/mirrors-eslint
@@ -19,8 +19,8 @@ repos:
       - id: eslint
         additional_dependencies:
           - eslint@7.32.0
-          - "@typescript-eslint/eslint-plugin@4.30.0"
-          - "@typescript-eslint/parser@4.30.0"
+          - '@typescript-eslint/eslint-plugin@4.30.0'
+          - '@typescript-eslint/parser@4.30.0'
           - eslint-plugin-import@2.24.2
           - eslint-plugin-prettier@4.0.0
           - eslint-plugin-react@7.25.1
