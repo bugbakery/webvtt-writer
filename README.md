@@ -14,11 +14,12 @@ npm install @audapolis/webvtt-writer
 ### Usage
 
 #### 🏗️ Construction
+
 First, you have to create a `WebVtt`-Instance.
 This represents one subtitle file.
 
 ```js
-import { WebVtt } from "@audapolis/webvtt";
+import { WebVtt } from '@audapolis/webvtt-writer';
 
 const minimal_vtt = new WebVtt();
 ```
@@ -40,7 +41,7 @@ Now you can start adding elements to you subtitle file:
 To add a comment you have to create a new VttComment instance and then add it to the WebVtt object:
 
 ```js
-import { VttComment } from "@audapolis/webvtt";
+import { VttComment } from '@audapolis/webvtt-writer';
 const myComment = new VttComment('This is a comment\nIt can even be multiline');
 vtt.add(myComment);
 ```
@@ -50,6 +51,7 @@ vtt.add(myComment);
 Cues are subtitle lines.
 Each cue has a start and end time and a payload -- the text that should be displayed.
 It may optionally also have
+
 - an identifier
 - cue settings
 
@@ -58,8 +60,12 @@ It may optionally also have
 Since every cue needs a start time, an end time and a payload, this is one of the simplest cues possible:
 
 ```js
-import { VttCue } from "@audapolis/webvtt";
-const mySimpleCue = new VttCue({startTime: 1, endTime: 2, payload: 'This will be shown\nincluding this second line'})
+import { VttCue } from '@audapolis/webvtt-writer';
+const mySimpleCue = new VttCue({
+  startTime: 1,
+  endTime: 2,
+  payload: 'This will be shown\nincluding this second line',
+});
 vtt.add(mySimpleCue);
 ```
 
@@ -71,7 +77,12 @@ A cue may also have an identifier which can be used to reference this cue, for e
 They do not have to be unique, but are often numbered.
 
 ```js
-const cueWithIdentifier = new VttCue({startTime: 3, endTime: 4, payload: 'This cue has an identifier', identifier: 'Hey, i\'m an identifier'})
+const cueWithIdentifier = new VttCue({
+  startTime: 3,
+  endTime: 4,
+  payload: 'This cue has an identifier',
+  identifier: "Hey, i'm an identifier",
+});
 vtt.add(cueWithIdentifier);
 ```
 
@@ -79,19 +90,25 @@ vtt.add(cueWithIdentifier);
 
 Cue settings are used to position the cue payload text.
 There are 5 cue settings, whose meanings and possible values are described [here](https://developer.mozilla.org/en-US/docs/Web/API/WebVTT_API#cue_settings):
-* vertical
-* line
-* position
-* size
-* align
+
+- vertical
+- line
+- position
+- size
+- align
 
 All of them are optional but if you want to, you can specify them like this:
 
 ```js
-import { VttCueSettings } from "@audapolis/webvtt";
+import { VttCueSettings } from '@audapolis/webvtt-writer';
 
-const mySettings = new VttCueSettings({size: '50%'});
-const cueWithSettings = new VttCue({startTime: 5, endTime: 120, payload: 'This cue has settings', settings: mySettings});
+const mySettings = new VttCueSettings({ size: '50%' });
+const cueWithSettings = new VttCue({
+  startTime: 5,
+  endTime: 120,
+  payload: 'This cue has settings',
+  settings: mySettings,
+});
 vtt.add(cueWithSettings);
 ```
 
@@ -107,9 +124,14 @@ If you want to use payload tags, you can set `payloadEscaped` to `true`. This wi
 For example:
 
 ```js
-import {escapeVttString} from '@audapolis/webvtt-writer';
+import { escapeVttString } from '@audapolis/webvtt-writer';
 
-const cueWithoutEscaping = new VttCue({startTime: 130, endTime: 200, payload: `<b>${escapeVttString('This cue')}</b>${escapeVttString(' has cue text tags')}`, payloadEscaped: true})
+const cueWithoutEscaping = new VttCue({
+  startTime: 130,
+  endTime: 200,
+  payload: `<b>${escapeVttString('This cue')}</b>${escapeVttString(' has cue text tags')}`,
+  payloadEscaped: true,
+});
 vtt.add(cueWithoutEscaping);
 ```
 
@@ -146,30 +168,34 @@ This cue has settings
 ```
 
 This can now be written to a file, for example on nodejs like this:
+
 ```js
-fs.writeFileSync("subtitles.vtt", vttString);
+fs.writeFileSync('subtitles.vtt', vttString);
 ```
 
 ##### SRT
 
 You can also export the subtitles as an SRT file, which has broader software support.
 **Note:** Srt does not support some features of WebVTT. We know of at least:
-* header (including header text)
-* cue text tags
-* cue settings
-* comments
+
+- header (including header text)
+- cue text tags
+- cue settings
+- comments
 
 The header, cue settings and comments will simply be ignored when exporting to srt.
 Since cue text tags are not handled by this library, you have to take care to not add them if you want to create an srt
 file.
 
 Knowing all this, you can render the srt version of using `.toString('srt')`:
+
 ```js
 const srtString = vtt.toString('srt');
 console.log(srtString);
 ```
 
 This should give you:
+
 ```
 00:00:01.000 --> 00:00:02.000
 This will be shown
