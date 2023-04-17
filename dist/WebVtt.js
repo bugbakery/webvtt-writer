@@ -38,7 +38,7 @@ function formattedTime(sec) {
 exports.formattedTime = formattedTime;
 class VttCue {
     constructor({ startTime, endTime, payload, payloadEscaped, identifier, identifierEscaped, settings, }) {
-        if (this.startTime >= this.endTime) {
+        if (startTime >= endTime) {
             throw Error('Cue end time must be greater than cue start time');
         }
         this.startTime = startTime;

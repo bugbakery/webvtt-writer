@@ -83,7 +83,7 @@ export class VttCue implements VttElement {
     identifierEscaped?: boolean;
     settings?: VttCueSettings;
   }) {
-    if (this.startTime >= this.endTime) {
+    if (startTime >= endTime) {
       throw Error('Cue end time must be greater than cue start time');
     }
     this.startTime = startTime;
